@@ -5,13 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-    public class Userscontroller : Controller
+    
+    public class Userscontroller : BaseApicontroller
     {
         private readonly ILogger<Userscontroller> _logger;
 
@@ -24,13 +25,24 @@ namespace API.Controllers
         }
 
 
-        [HttpGet]
+        [Authorize]
+        //https://localhost:5001/api/users/
+        [HttpGet] 
+        //----------------------------------------------
+        //https://localhost:5001/api/users/GetAllUsers
+        //[HttpGet("GetAllUsers")] if you want to call this method by its name 
         public ActionResult<IEnumerable<AppUser>> GetAllUsers()
         {
             return _context.Users.ToList();
         }
 
+
+         [AllowAnonymous]
+         //https://localhost:5001/api/users/1
          [HttpGet("{id}")]
+         //----------------------------------------------
+         //[HttpGet("GetUser/{id}")]
+         //https://localhost:5001/api/users/GetUser/1
         public ActionResult<AppUser> GetUser(int id)
         {
             return _context.Users.Find(id);
