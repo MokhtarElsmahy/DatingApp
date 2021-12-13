@@ -35,10 +35,10 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddApplicationService(Configuration);
+            services.AddApplicationService(Configuration);//this an extension method to make code cleaner 
             services.AddControllers();
             services.AddCors();
-            services.AddIdentityService(Configuration);
+            services.AddIdentityService(Configuration);   //this an extension method to make code cleaner 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });

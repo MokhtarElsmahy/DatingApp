@@ -25,7 +25,7 @@ namespace API.Controllers
         }
 
 
-        [Authorize]
+        //[Authorize]
         //https://localhost:5001/api/users/
         [HttpGet] 
         //----------------------------------------------

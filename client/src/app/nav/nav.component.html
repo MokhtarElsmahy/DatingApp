@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container">
+       
+            <a class="navbar-brand" href="#">Dating App</a>
+              <ul class="navbar-nav mr-auto" *ngIf="accountService.currentUser$ |async">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="#">Matches</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Lists</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" (click)="logout()">Logout</a>
+                  </li>
+              </ul>
+
+              <div *ngIf="accountService.currentUser$ |async" class="dropdown" dropdown>
+                <button class="btn btn-secondary dropdown-toggle" dropdownToggle type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   Welcome User
+                  </button>
+
+                  <div class="dropdown-menu mt-3" *dropdownMenu>
+                    <a class="dropdown-item" href="#">Edit Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
+                
+                  </div>
+              </div>
+
+
+            
+              <form *ngIf="(accountService.currentUser$ |async)===null" #loginFormm="ngForm" (ngSubmit)="login()" autocomplete="off" class="form-inline mt-2 mt-md-0">
+                <input
+                name = "username"
+                [(ngModel)]="model.Username"
+                 class="form-control mr-sm-2" type="text" placeholder="Username">
+
+                <input
+                name = "password"
+                [(ngModel)]="model.Password"
+                class="form-control mr-sm-2" type="text" placeholder="Password">
+                <button class="btn btn-outline-success" type="submit">Login</button>
+              </form>
+       
+    </div>
+    
+  </nav>
