@@ -4,24 +4,29 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.DTOs;
 using API.Entities;
+using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace API.Controllers
 {
-    
+    [Authorize]
     public class Userscontroller : BaseApicontroller
     {
         private readonly ILogger<Userscontroller> _logger;
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public DataContext _context { get; }
-
-        public Userscontroller(DataContext context)
+        public Userscontroller(IUserRepository userRepository , IMapper mapper)
         {
             
-            _context = context;
+           
+            _userRepository = userRepository;
+            _mapper = mapper;
         }
 
 
@@ -31,21 +36,26 @@ namespace API.Controllers
         //----------------------------------------------
         //https://localhost:5001/api/users/GetAllUsers
         //[HttpGet("GetAllUsers")] if you want to call this method by its name 
-        public ActionResult<IEnumerable<AppUser>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetAllUsers()
         {
-            return _context.Users.ToList();
+            // var users =await _userRepository.GetUsersAsync();
+            // var usersToReturn = _mapper.Map<IEnumerable<MemberDto>>(users);
+           // return Ok(usersToReturn);
+           return Ok(await _userRepository.GetMemebersAsync());
         }
 
 
-         [AllowAnonymous]
+         //[AllowAnonymous]
          //https://localhost:5001/api/users/1
-         [HttpGet("{id}")]
+         [HttpGet("{username}")]
          //----------------------------------------------
          //[HttpGet("GetUser/{id}")]
          //https://localhost:5001/api/users/GetUser/1
-        public ActionResult<AppUser> GetUser(int id)
-        {
-            return _context.Users.Find(id);
+        public async Task<ActionResult<MemberDto>> GetUser(String username)
+        { 
+            // var user =  await _userRepository.GetUserByUsernameAsync(username);
+            // return _mapper.Map<MemberDto>(user);
+            return await _userRepository.GetMemeberAsync(username);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

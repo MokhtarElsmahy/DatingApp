@@ -10,6 +10,7 @@ namespace API.Extensions
     {
          public static IServiceCollection AddApplicationService(this IServiceCollection services , IConfiguration Configuration)
          {
+            
              services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).
              AddJwtBearer(option=>{
                    option.TokenValidationParameters = new TokenValidationParameters
