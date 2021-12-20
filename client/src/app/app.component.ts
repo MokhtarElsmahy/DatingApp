@@ -13,13 +13,13 @@ export class AppComponent implements OnInit {
   title = 'Dating'; 
   users : any;
   ngOnInit(): void {
-    this.getUsers();
+   // this.getUsers();
   }
  
   
   constructor(private http :HttpClient ,private accountService :AccountService) {
-    this.getUsers();
-    this.setCurrentUser();
+    // this.getUsers();
+    // this.setCurrentUser();
   }
 
   setCurrentUser(){
