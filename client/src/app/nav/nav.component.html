@@ -31,7 +31,7 @@
       </button>
 
       <div class="dropdown-menu mt-3" *dropdownMenu>
-        <a class="dropdown-item" href="#">Edit Profile</a>
+        <a class="dropdown-item" routerLink="/member/edit">Edit Profile</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
 
@@ -45,7 +45,7 @@
       <input name="username" [(ngModel)]="model.Username" class="form-control mr-sm-2" type="text"
         placeholder="Username">
 
-      <input name="password" [(ngModel)]="model.Password" class="form-control mr-sm-2" type="text"
+      <input name="password" [(ngModel)]="model.Password" class="form-control mr-sm-2" type="password"
         placeholder="Password">
       <button class="btn btn-success" type="submit">Login</button>
     </form>
