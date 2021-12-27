@@ -12,7 +12,9 @@ namespace API.Extensions
     {
          public static IServiceCollection AddIdentityService(this IServiceCollection services , IConfiguration Configuration)
          {
-            services.AddScoped<ITokenService, TokenService>();
+              services.Configure<CloudinarySetings>(Configuration.GetSection("CloudinarySettings"));
+              services.AddScoped<IPhotoService, PhotoService>();
+              services.AddScoped<ITokenService, TokenService>();
               services.AddScoped<IUserRepository,UserRepository>();
               services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
              services.AddDbContext<DataContext>(option=>{

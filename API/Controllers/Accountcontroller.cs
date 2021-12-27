@@ -10,6 +10,7 @@ using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace API.Controllers
@@ -56,7 +57,7 @@ namespace API.Controllers
         [HttpPost("Login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = _context.Users.FirstOrDefault(c=>c.UserName == loginDto.Username.ToLower());
+            var user = _context.Users.Include(c=>c.Photos).FirstOrDefault(c=>c.UserName == loginDto.Username.ToLower());
             if (user == null)
             {
                 return Unauthorized("Invalid username");
@@ -76,7 +77,9 @@ namespace API.Controllers
                }
                return new UserDto{
                     Username = user.UserName,
-                    token = _tokenService.CreateToken(user)
+                    token = _tokenService.CreateToken(user),
+                    PhotoUrl = user.Photos.FirstOrDefault(c=>c.IsMain)?.Url
+                
                 };
             }
             
