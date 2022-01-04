@@ -6,6 +6,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
+import{BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 
 
@@ -19,13 +20,15 @@ import { FileUploadModule } from 'ng2-file-upload';
     }),
     TabsModule.forRoot(),
     NgxGalleryModule, //to use gallary npm install @kolkov/ngx-gallery --force
-    FileUploadModule
+    FileUploadModule,
+    BsDatepickerModule.forRoot()
   ],exports:[
     BsDropdownModule,
     ToastrModule,
     TabsModule,
     NgxGalleryModule,
-    FileUploadModule
+    FileUploadModule,
+    BsDatepickerModule
   ]
 })
 export class SharedModule { }
